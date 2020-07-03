@@ -1,0 +1,10 @@
+
+body {
+  background-color: grey;
+}
+
+.content {
+  display: flex;
+  margin-top: 2rem;
+  margin-left: -20em;
+}
