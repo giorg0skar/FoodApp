@@ -1,0 +1,10 @@
+
+.content {
+  background-color: lightblue;
+  display: flex;
+  margin-left: -20em;
+}
+
+.order {
+  margin-top: 2em;
+}
