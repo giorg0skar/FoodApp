@@ -14,6 +14,8 @@ export class FoodlistComponent implements OnInit {
   cart: Food[] = [];
   categories: string[] = ['Appetizers', 'Main dishes', 'Salads', 'Desserts', 'Drinks'];
 
+  constructor() { }
+
   ngOnInit() {}
 
   // Minimum info of a food: name, price
