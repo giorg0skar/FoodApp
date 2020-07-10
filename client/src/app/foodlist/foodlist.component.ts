@@ -18,11 +18,6 @@ export class FoodlistComponent implements OnInit {
 
   ngOnInit() {}
 
-  // Minimum info of a food: name, price
-  addFood(name, price, cat) {
-    let new_food = new Food({title: name, price: price, category: cat});
-    this.itemList.push(new_food);
-  }
 
   addToCart(item: Food) {
     this.cart.push(item);
