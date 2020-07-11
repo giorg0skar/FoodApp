@@ -1,24 +1,45 @@
 
-<div class="container">
+<div class="container-fluid">
   <!-- Navbar -->
   <div class="row" id="row1">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-          <li class="nav-item active">
-            <a class="nav-link" routerLink="/customer">Home</a>
-          </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="/providers">Create</a>
+            <a class="nav-link" routerLink="/customer">Customer</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" routerLink="/providers">Provider</a>
           </li>
         </ul>
       </div>
     </nav>
   </div>
 
-  <div class="row">
+  <div id="add-food">
     <!-- provider creates new items for the store -->
+    <form #foodForm="ngForm">
+      <h5>Add a new item to restaurant menu</h5>
+
+      <div class="form-group form-inline">
+        <label for="foodName">Name</label>
+        <input type="text" class="form-control" placeholder="Food name" required id="foodName" name="title" ngModel>
+        <input type="number" class="form-control" placeholder="Price" required name="price" ngModel>
+      </div>
+        <!-- <input type="number" class="form-control" placeholder="Price" required name="price" ngModel> -->
+        <input type="text" class="form-control" placeholder="Category" required name="category" ngModel>
+        <div class="form-group form-inline">
+          <label for="avail1">Available</label>
+          <input type="checkbox" class="form-control" id="avail1" name="availability" ngModel>
+        </div>
+        <input type="textarea" class="form-control" name="description" placeholder="(Optional) Add a description for this item" gModel>
+        <button type="submit" class="btn btn-success" [disabled]="!foodForm.form.valid"
+          (click)="addFood(foodForm.value); foodForm.reset()" >New item
+        </button>
+      <!-- </div> -->
+    </form>
   </div>
+  <hr/>
 
 </div>
 

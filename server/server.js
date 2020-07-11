@@ -1,9 +1,12 @@
-
 const express = require('express');
 const bodyParser= require('body-parser');
+const { Db } = require('mongodb');
 const app = express();
 const MongoClient = require('mongodb').MongoClient;
 
+// parse requests of content-type - application/json
+app.use(bodyParser.json());
+// parse requests of content-type - applicationx-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // MongoDB

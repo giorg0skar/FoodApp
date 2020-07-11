@@ -2,7 +2,6 @@
 .content {
   background-color: lightblue;
   display: flex;
-  margin-left: -20em;
 }
 
 .order {

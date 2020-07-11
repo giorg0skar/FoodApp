@@ -18,9 +18,15 @@ export class ProviderComponent implements OnInit {
   }
 
   // Minimum info of a food: name, price
-  addFood(name, price, cat) {
-    let new_food = new Food({title: name, price: price, category: cat});
+  // addFood(name, price, cat) {
+  //   let new_food = new Food({title: name, price: price, category: cat});
+  //   this.foodList.push(new_food);
+  // }
+  addFood(info) {
+    console.log(info);
+    let new_food = new Food({title: info.title, price: info.price, category: info.category});
     this.foodList.push(new_food);
+    // needs to add food to database
   }
 
 }

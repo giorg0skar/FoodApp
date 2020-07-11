@@ -1,10 +1,24 @@
 
+.container-fluid {
+  background-color: lightblue;
+}
 
 nav {
-  margin-top: 1em;
+  margin-top: 0.5em;
+  margin-left: 1em;
 }
 
 
-.order {
-  margin-top: 2em;
+#add-food {
+  display: flex;
+  margin-top: 1em;
+  margin-left: 1em;
+}
+
+.form-inline {
+  display: flex;
+}
+
+#avail1 {
+  margin-left: 5px;
 }
