@@ -17,8 +17,8 @@ import { FoodlistComponent } from './foodlist/foodlist.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

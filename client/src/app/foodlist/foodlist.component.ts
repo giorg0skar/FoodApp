@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+import { ApiService } from '../api.service';
 import { Food } from '../food';
 
 @Component({
@@ -14,9 +15,16 @@ export class FoodlistComponent implements OnInit {
   cart: Food[] = [];
   categories: string[] = ['Appetizers', 'Main dishes', 'Salads', 'Desserts', 'Drinks'];
 
-  constructor() { }
+  constructor(private apiService: ApiService) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.apiService.getAll().subscribe(
+      (data: Food[]) => {
+        this.itemList = data;
+        console.log(data);
+      }
+    );
+  }
 
 
   addToCart(item: Food) {
@@ -25,13 +33,13 @@ export class FoodlistComponent implements OnInit {
   }
 
   removeFromCart(item: Food) {
-    for(let i = 0; i < this.itemList.length; i++) {
-      if (this.itemList[i] === item) {
-        this.itemList.splice(i, 1);
+    for(let i = 0; i < this.cart.length; i++) {
+      if (this.cart[i] === item) {
+        this.cart.splice(i, 1);
         break;
       }
     }
-    // item needs to also be removed from the database
+    // item needs to also be removed from
   }
 
   getFoodsfromCategory(cat: string) {
@@ -47,6 +55,10 @@ export class FoodlistComponent implements OnInit {
   submitOrder() {
     // submit order
     console.log('Order submitted');
+    // send order to provider: cart data -> provider component
+
+    // afterwards empty the cart
+    this.cart = [];
   }
 
 }

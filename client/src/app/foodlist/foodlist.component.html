@@ -57,10 +57,12 @@
         <strong style="text-align: center;">PLACE YOUR ORDER</strong>
         <ul class="list-group">
           <li class="list-group-item" *ngFor="let food of cart">
-            <span>{{food.title}}</span>
+            <span>{{food.title}}, {{food.price}}</span>
           </li>
         </ul>
         <button (click)="submitOrder()" class="btn btn-primary">Submit order</button>
+        <br/>
+        <span><i>Payment is only done in cash</i></span>
       </div>
     </div>
   </div>
