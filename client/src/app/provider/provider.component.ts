@@ -18,6 +18,7 @@ export class ProviderComponent implements OnInit {
   constructor(private apiService: ApiService) { }
 
   ngOnInit(): void {
+    this.retrieveItems();
   }
 
   // Minimum info of a food: name, price
@@ -29,7 +30,7 @@ export class ProviderComponent implements OnInit {
     console.log(info);
     let new_food = new Food({title: info.title, price: info.price, category: info.category,
       description: info.description,
-      availability: info.availability
+      available: info.availability
     });
     this.foodList.push(new_food);
     // needs to add food to database

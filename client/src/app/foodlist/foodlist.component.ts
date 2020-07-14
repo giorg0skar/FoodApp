@@ -13,6 +13,7 @@ export class FoodlistComponent implements OnInit {
   title = 'foodapp';
   itemList: Food[] = [];
   cart: Food[] = [];
+  order_cost: number;
   categories: string[] = ['Appetizers', 'Main dishes', 'Salads', 'Desserts', 'Drinks'];
 
   constructor(private apiService: ApiService) { }
@@ -29,6 +30,7 @@ export class FoodlistComponent implements OnInit {
 
   addToCart(item: Food) {
     this.cart.push(item);
+    this.order_cost += item.price;
     // needs to send item to database
   }
 
@@ -36,6 +38,7 @@ export class FoodlistComponent implements OnInit {
     for(let i = 0; i < this.cart.length; i++) {
       if (this.cart[i] === item) {
         this.cart.splice(i, 1);
+        this.order_cost -= item.price;
         break;
       }
     }
@@ -59,6 +62,7 @@ export class FoodlistComponent implements OnInit {
 
     // afterwards empty the cart
     this.cart = [];
+    this.order_cost = 0;
   }
 
 }

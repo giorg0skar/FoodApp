@@ -1,8 +1,14 @@
 const express = require('express');
 const bodyParser= require('body-parser');
+const cors = require('cors');
 const { Db } = require('mongodb');
 const app = express();
-const MongoClient = require('mongodb').MongoClient;
+
+var corsOptions = {
+  origin: "http://localhost:8081"
+};
+
+app.use(cors(corsOptions));
 
 // parse requests of content-type - application/json
 app.use(bodyParser.json());
@@ -10,30 +16,45 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // MongoDB
-const url = 'mongodb://127.0.0.1:27017';
-const dbName = 'restaurant-menu';
-let db;
+// const url = 'mongodb://127.0.0.1:27017';
+// const dbName = 'restaurant_menu';
+const db = require('./app/models');
 
-app.listen(3000, function() {
-  console.log('listened to 3000')
+db.mongoose.connect(db.url, {useNewUrlParser: true, useUnifiedTopology: true})
+  .then( () => {
+    console.log('Connected to the database');
+  })
+  .catch( err => {
+    console.log('Cannot connect to the database', err);
+    process.exit();
+  });
+
+
+require("./app/routes/shop.routes")(app);
+
+// set port, listen to requests
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, function() {
+  console.log(`listening to ${PORT}`);
 });
 
-app.get('/', function(req, res) {
-  res.send('Hello world')
-});
+// app.post('/', (req, res) => {
+//   item = new Food()
+// }
+// );
 
-MongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
-  if (err) return console.log(err)
-  // storing database
-  db = client.db(dbName)
-  const menuCollection = db.collection('menu')
-  console.log(`Connected to MongoDB: ${url}`)
-});
+// MongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+//   if (err) return console.log(err)
+//   // storing database
+//   db = client.db(dbName)
+//   const menuCollection = db.collection('menu')
+//   console.log(`Connected to MongoDB: ${url}`)
+// });
 
-app.post('/new-item', (req, res) => {
-  db.collection('menu').insertOne(req.body)
-  //menuCollection.insertOne(req.body)
-    .then(result => {
-      res.redirect('/')
-    })
-});
+// app.post('/new-item', (req, res) => {
+//   db.collection('menu').insertOne(req.body)
+//   //menuCollection.insertOne(req.body)
+//     .then(result => {
+//       res.redirect('/')
+//     })
+// });
