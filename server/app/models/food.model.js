@@ -1,25 +1,32 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-module.exports = mongoose => {
+// the Schema for an item of the restaurant's menu
+const itemSchema = new Schema({
+  title: String,
+  price: Number,
+  category: String,
+  description: String,
+  available: Boolean
+});
 
-  var schema = mongoose.Schema(
-    {
-      title: String,
-      price: Number,
-      category: String,
-      description: String,
-      available: Boolean
-    },
-    { timestamps: true }
-  );
+module.exports = mongoose.model('food', itemSchema);
 
-  schema.method("toJSON", function() {
-    const { __v, _id, ...object } = this.toObject();
-    object.id = _id;
-    return object;
-  });
 
-  const Food = mongoose.model("food", schema);
+// module.exports = mongoose => {
 
-  return Food;
-};
+//   var schema = mongoose.Schema(
+//     {
+//       title: String,
+//       price: Number,
+//       category: String,
+//       description: String,
+//       available: Boolean
+//     },
+//     { timestamps: true }
+//   );
+
+//   const Food = mongoose.model('food', schema);
+
+//   return Food;
+// };

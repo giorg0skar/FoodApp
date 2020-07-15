@@ -1,11 +1,10 @@
 const express = require('express');
 const bodyParser= require('body-parser');
 const cors = require('cors');
-const { Db } = require('mongodb');
 const app = express();
 
 var corsOptions = {
-  origin: "http://localhost:8081"
+  origin: "http://localhost:4200"
 };
 
 app.use(cors(corsOptions));

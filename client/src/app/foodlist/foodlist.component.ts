@@ -25,12 +25,13 @@ export class FoodlistComponent implements OnInit {
         console.log(data);
       }
     );
+    this.order_cost = 0;
   }
 
 
   addToCart(item: Food) {
     this.cart.push(item);
-    this.order_cost += item.price;
+    this.order_cost += Number(item.price);
     // needs to send item to database
   }
 
@@ -38,7 +39,7 @@ export class FoodlistComponent implements OnInit {
     for(let i = 0; i < this.cart.length; i++) {
       if (this.cart[i] === item) {
         this.cart.splice(i, 1);
-        this.order_cost -= item.price;
+        this.order_cost -= Number(item.price);
         break;
       }
     }

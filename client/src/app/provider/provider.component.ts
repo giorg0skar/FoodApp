@@ -27,12 +27,15 @@ export class ProviderComponent implements OnInit {
   //   this.foodList.push(new_food);
   // }
   addFood(info) {
-    console.log(info);
-    let new_food = new Food({title: info.title, price: info.price, category: info.category,
+    // console.log(info);
+    let new_food = new Food({
+      title: info.title,
+      price: info.price,
+      category: info.category,
       description: info.description,
       available: info.availability
     });
-    this.foodList.push(new_food);
+    // this.foodList.push(new_food);
     // needs to add food to database
     this.apiService.create(new_food);
   }
@@ -54,6 +57,8 @@ export class ProviderComponent implements OnInit {
     this.apiService.getAll().subscribe(
       (data: Food[]) => {
         this.foodList = data;
+        console.log('retrieved the following items from the database');
+        console.log(data);
       }
     );
   }

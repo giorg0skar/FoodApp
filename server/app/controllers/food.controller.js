@@ -18,9 +18,9 @@ exports.create = (req, res) => {
   });
 
   item.save(function (error, document) {
-    if (error) console.error(error)
-    console.log(document)
-  })
+    if (error) console.error(error);
+    console.log(document);
+  });
   // item.save( data => {
   //   console.log(data);
   //   res.send(data);
