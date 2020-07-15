@@ -44,6 +44,7 @@
   <ul class="list-group">
     <li class="list-group-item" *ngFor="let item of foodList">
       {{item.title}} costs {{item.price}} euros
+      <button><i (click)="deleteFood(item)" class="material-icons">delete</i></button>
     </li>
   </ul>
   <hr/>

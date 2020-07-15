@@ -41,29 +41,29 @@ const Food = require('./app/models/food.model');
 
 // ----TESTING EXAMPLE STARTS----------------
 
-const chicken = new Food({
-  title: 'chicken',
-  price: 5.5,
-  category: 'Main dishes',
-  description: 'Chicken in the oven',
-  available: true
-});
-chicken.save(function(err, document) {
-  if (err) console.error(err);
-  console.log(document);
-});
+// const chicken = new Food({
+//   title: 'chicken',
+//   price: 5.5,
+//   category: 'Main dishes',
+//   description: 'Chicken in the oven',
+//   available: true
+// });
+// chicken.save(function(err, document) {
+//   if (err) console.error(err);
+//   console.log(document);
+// });
 
-const soup = new Food({
-  title: 'soup',
-  price: 6,
-  category: 'Main dishes',
-  description: 'Chicken in the oven',
-  available: true
-});
-soup.save(function(err, document) {
-  if (err) console.error(err);
-  console.log(document);
-});
+// const soup = new Food({
+//   title: 'soup',
+//   price: 6,
+//   category: 'Main dishes',
+//   description: 'Chicken in the oven',
+//   available: true
+// });
+// soup.save(function(err, document) {
+//   if (err) console.error(err);
+//   console.log(document);
+// });
 
 // ----TESTING EXAMPLE ENDS---------------
 
@@ -90,6 +90,26 @@ app.post(baseUrl, function(req, res) {
   new_item.save(function(err, document) {
     if (err) console.error(err);
     console.log(document);
+  });
+});
+
+// delete all items
+app.delete(baseUrl, function(req, res) {
+  Food.deleteMany({}, (err) => {
+    if (err) console.error(err);
+  });
+  console.log('emptied the database');
+});
+
+// delete an item with a specific id
+app.delete(`${baseUrl}/:id`, function(req, res) {
+  // const id = req.params.id;
+  // const deleted = Food.findByIdAndRemove(id, (err, res) => {
+  //   if (err) console.error(err);
+  // });
+  const name = req.params.id;
+  const deleted = Food.findOneAndDelete({ title: name }, function(err, res) {
+    if (err) console.error(err);
   });
 });
 

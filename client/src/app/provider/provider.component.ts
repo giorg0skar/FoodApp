@@ -40,8 +40,8 @@ export class ProviderComponent implements OnInit {
     this.apiService.create(new_food);
   }
 
-  deleteFood(data) {
-    let item_id = data.id;
+  deleteFood(data: Food) {
+    let item_id = data.title;
     this.apiService.delete(item_id).subscribe(
       (response) => {
         console.log(response);
