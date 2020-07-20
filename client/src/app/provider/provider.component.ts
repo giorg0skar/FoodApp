@@ -3,6 +3,7 @@ import { FormControl } from '@angular/forms';
 
 import { ApiService } from '../api.service';
 import { Food } from '../food';
+import { error } from 'protractor';
 
 @Component({
   selector: 'app-provider',
@@ -27,7 +28,8 @@ export class ProviderComponent implements OnInit {
   //   this.foodList.push(new_food);
   // }
   addFood(info) {
-    // console.log(info);
+    console.log('the new food data is');
+    console.log(info);
     let new_food = new Food({
       title: info.title,
       price: info.price,
@@ -37,15 +39,35 @@ export class ProviderComponent implements OnInit {
     });
     // this.foodList.push(new_food);
     // needs to add food to database
-    this.apiService.create(new_food);
+    this.apiService.create(new_food).subscribe(
+      (res) => {
+        this.retrieveItems();
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   deleteFood(data: Food) {
+    // let item_id = data._id;
     let item_id = data.title;
     this.apiService.delete(item_id).subscribe(
       (response) => {
         console.log(response);
-        // this.foodList = this.apiService.getAll();
+        this.retrieveItems();
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  deleteAllItems() {
+    this.apiService.deleteAll().subscribe(
+      response => {
+        console.log(response);
+        this.retrieveItems();
       },
       error => {
         console.log(error);
@@ -57,8 +79,13 @@ export class ProviderComponent implements OnInit {
     this.apiService.getAll().subscribe(
       (data: Food[]) => {
         this.foodList = data;
-        console.log('retrieved the following items from the database');
-        console.log(data);
+        console.log('Retrieved the following items from the database');
+        // console.log(data);
+        // console.log('foodlist is');
+        console.log(this.foodList);
+      },
+      error => {
+        console.log(error);
       }
     );
   }

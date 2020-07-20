@@ -27,10 +27,18 @@
         <input type="number" class="form-control" placeholder="Price" required name="price" ngModel>
       </div>
         <!-- <input type="number" class="form-control" placeholder="Price" required name="price" ngModel> -->
-        <input type="text" class="form-control" placeholder="Category" required name="category" ngModel>
+        <!-- <input type="text" class="form-control" placeholder="Category" required name="category" ngModel> -->
+        <div class="form-group">
+          <label for="inputCategory">Choose category</label>
+          <select name="category" id="inputCategory" class="form-control" ngModel>
+            <option *ngFor="let cat of categories">{{cat}}</option>
+          </select>
+        </div>
         <div class="form-group form-inline">
-          <label for="avail1">Available</label>
-          <input type="checkbox" class="form-control" id="avail1" name="availability" ngModel>
+          <div class="form-check">
+            <label class="form-check-label" for="avail1">Available</label>
+            <input type="checkbox" class="form-check-input" id="avail1" name="availability" ngModel>
+          </div>
         </div>
         <input type="textarea" class="form-control" name="description" placeholder="(Optional) Add a description for this item" gModel>
         <button type="submit" class="btn btn-success" [disabled]="!foodForm.form.valid"
@@ -40,11 +48,15 @@
     </form>
   </div>
 
+  <button class="m-3 btn btn-sm btn-danger" (click)="deleteAllItems()">
+    Remove All
+  </button>
+
   <h4>List of items</h4>
   <ul class="list-group">
     <li class="list-group-item" *ngFor="let item of foodList">
       {{item.title}} costs {{item.price}} euros
-      <button><i (click)="deleteFood(item)" class="material-icons">delete</i></button>
+      <button class="btn btn-sm btn-danger" (click)="deleteFood(item)">Delete</button>
     </li>
   </ul>
   <hr/>

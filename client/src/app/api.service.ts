@@ -34,4 +34,9 @@ export class ApiService {
   delete(id) {
     return this.http.delete(`${this.baseUrl}/${id}`);
   }
+
+  // deletes all items
+  deleteAll() {
+    return this.http.delete(this.baseUrl);
+  }
 }

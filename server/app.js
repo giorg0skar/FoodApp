@@ -74,7 +74,7 @@ app.get(baseUrl, function(req, res) {
   // console.log('root folder accessed');
   Food.find((err, data) => {
     res.send(data);
-  })
+  });
 });
 
 // create new item
@@ -89,6 +89,7 @@ app.post(baseUrl, function(req, res) {
 
   new_item.save(function(err, document) {
     if (err) console.error(err);
+    else res.send(document);
     console.log(document);
   });
 });
@@ -96,20 +97,30 @@ app.post(baseUrl, function(req, res) {
 // delete all items
 app.delete(baseUrl, function(req, res) {
   Food.deleteMany({}, (err) => {
-    if (err) console.error(err);
+    if (err) {
+      console.error(err);
+      res.status(404).send({message: `Item ${id} could not be found`});
+    }
+    else res.send({message: 'All items were deleted succesfully'});
   });
-  console.log('emptied the database');
+  // console.log('emptied the database');
 });
 
 // delete an item with a specific id
 app.delete(`${baseUrl}/:id`, function(req, res) {
-  // const id = req.params.id;
-  // const deleted = Food.findByIdAndRemove(id, (err, res) => {
+
+  const id = req.params.id;
+  // const deleted = Food.findByIdAndDelete(id, function(err, res) {
   //   if (err) console.error(err);
+  //   else {
+  //     res.send('Item deleted successfully');
+  //   }
   // });
-  const name = req.params.id;
-  const deleted = Food.findOneAndDelete({ title: name }, function(err, res) {
-    if (err) console.error(err);
+  const deleted = Food.findOneAndDelete({title: id}, function(err, doc) {
+    if (err) console.log(err);
+    else {
+      res.send({message: `Item ${id} was deleted succesfully`});
+    }
   });
 });
 

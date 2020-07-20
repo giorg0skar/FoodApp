@@ -1,5 +1,5 @@
 export class Food {
-  id: number;
+  _id;
   title: string;
   price: number;
   category:string = 'Main dishes';
