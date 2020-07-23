@@ -1,70 +1,56 @@
 
 <div class="content" role="main">
-  <div class="container">
-    <div class="row">
-      <!-- Navbar -->
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item active">
-              <a class="nav-link" routerLink="/customer">Customer</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" routerLink="/providers">Provider</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
+
+  <!-- <div class="row order"> -->
+    <div class="col-sm">
+      <!-- Categories -->
+      <strong>CATEGORIES</strong>
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor="let entry of categories" >
+          <span>{{ entry }}</span>
+          <a href="#{{entry}}">link</a>
+        </li>
+      </ul>
     </div>
 
-    <div class="row order">
-      <div class="col-sm">
-        <!-- Categories -->
-        <strong>CATEGORIES</strong>
-        <ul class="list-group">
-          <li class="list-group-item" *ngFor="let entry of categories" >
-            <span>{{ entry }}</span>
-            <a href="#{{entry}}">link</a>
-          </li>
-        </ul>
-      </div>
-
-      <div class="col-md">
-        <!-- Item List -->
-        <span style="text-align: center;"><strong>CHOOSE YOUR FOOD</strong></span>
-        <ul class="list-group">
-          <li class="list-group-item" *ngFor="let entry of categories" >
-            <div id="{{entry}}">
-              <!-- Display the items of each category of the menu -->
-              <strong>{{ entry }}</strong>
-              <hr/>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item justify-content-between" *ngFor="let food of getFoodsfromCategory(entry)">
-                  <span>{{food.title}}</span>
-                  <button (click)="addToCart(food)" class="input-group-text">Add to cart</button>
-                  <br/>
-                  <span>{{food.price}}</span>
-                </li>
-              </ul>
-            </div>
-          </li>
-        </ul>
-      </div>
-
-      <div class="col-sm">
-        <!-- Order -->
-        <strong style="text-align: center;">PLACE YOUR ORDER</strong>
-        <ul class="list-group">
-          <li class="list-group-item" *ngFor="let food of cart">
-            <span>{{food.title}}, {{food.price}}</span>
-            <button class="input-group-text"><i (click)="removeFromCart(food)" class="material-icons">delete</i></button>
-          </li>
-        </ul>
-        <span><strong>Total cost: {{order_cost}}</strong></span>
-        <button (click)="submitOrder()" class="btn btn-primary">Submit order</button>
-        <br/>
-        <span><i>Payment is only done in cash</i></span>
-      </div>
+    <div class="col item-list">
+      <!-- Item List -->
+      <span style="text-align: center;"><strong>CHOOSE YOUR FOOD</strong></span>
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor="let entry of categories" >
+          <div id="{{entry}}">
+            <!-- Display the items of each category of the menu -->
+            <strong>{{ entry }}</strong>
+            <hr/>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item" *ngFor="let food of getFoodsfromCategory(entry)">
+                <span class="single-item">
+                  {{food.title}}
+                  <button (click)="addToCart(food)" class="btn btn-info">Add to cart</button>
+                </span>
+                <br/>
+                <span><i>{{food.price}} euros</i></span>
+              </li>
+            </ul>
+          </div>
+        </li>
+      </ul>
     </div>
-  </div>
+
+    <div class="col-sm">
+      <!-- Order -->
+      <strong style="text-align: center;">PLACE YOUR ORDER</strong>
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor="let food of cart">
+          <span>{{food.title}}, {{food.price}}</span>
+          <button class="input-group-text"><i (click)="removeFromCart(food)" class="material-icons">delete</i></button>
+        </li>
+      </ul>
+      <span><strong>Total cost: {{order_cost}}</strong></span>
+      <button (click)="submitOrder()" class="btn btn-primary">Submit order</button>
+      <br/>
+      <span><i>Payment is only done in cash</i></span>
+    </div>
+  <!-- </div> -->
+
 </div>

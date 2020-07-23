@@ -1,9 +1,18 @@
 
 .content {
-  background-color: lightblue;
   display: flex;
 }
 
-.order {
-  margin-top: 2em;
+.col {
+  flex-direction: row;
 }
+
+.item-list {
+  flex-grow: 3;
+}
+
+.single-item {
+  width: 100%;
+  justify-content: space-between;
+}
+

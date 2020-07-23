@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ApiService } from '../api.service';
+import { OrderService } from '../order.service';
 import { Food } from '../food';
 
 @Component({
@@ -16,7 +17,7 @@ export class FoodlistComponent implements OnInit {
   order_cost: number;
   categories: string[] = ['Appetizers', 'Main dishes', 'Salads', 'Desserts', 'Drinks'];
 
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: ApiService, private orderService: OrderService) { }
 
   ngOnInit() {
     this.apiService.getAll().subscribe(
@@ -32,7 +33,6 @@ export class FoodlistComponent implements OnInit {
   addToCart(item: Food) {
     this.cart.push(item);
     this.order_cost += Number(item.price);
-    // needs to send item to database
   }
 
   removeFromCart(item: Food) {
@@ -43,7 +43,6 @@ export class FoodlistComponent implements OnInit {
         break;
       }
     }
-    // item needs to also be removed from
   }
 
   getFoodsfromCategory(cat: string) {
@@ -61,6 +60,7 @@ export class FoodlistComponent implements OnInit {
     console.log('Order submitted');
     // send order to provider: cart data -> provider component
 
+    this.orderService.nextOrder(this.cart);
     // afterwards empty the cart
     this.cart = [];
     this.order_cost = 0;
