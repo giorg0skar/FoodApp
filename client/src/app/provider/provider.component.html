@@ -37,6 +37,14 @@
     Remove All
   </button>
 
+  <h4>Orders received</h4>
+  <ul class="list-group">
+    <li class="list-group-item" *ngFor="let item of orders">
+      Item <b>{{item.title}}</b>
+      Address is <i>to-be-given</i>
+    </li>
+  </ul>
+
   <h4>List of items</h4>
   <ul class="list-group">
     <li class="list-group-item" *ngFor="let item of foodList">

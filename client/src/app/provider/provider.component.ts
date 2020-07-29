@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 import { ApiService } from '../api.service';
+import { OrderService } from '../order.service';
 import { Food } from '../food';
 import { error } from 'protractor';
 
@@ -16,10 +17,16 @@ export class ProviderComponent implements OnInit {
   orders: Food[] = [];
   categories: string[] = ['Appetizers', 'Main dishes', 'Salads', 'Desserts', 'Drinks'];
 
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: ApiService, private orderService: OrderService) { }
 
   ngOnInit(): void {
     this.retrieveItems();
+
+    this.orderService.currentOrder.subscribe(
+      (message: Food[]) => {
+        this.orders = message;
+      }
+    );
   }
 
   // Minimum info of a food: name, price
@@ -75,6 +82,7 @@ export class ProviderComponent implements OnInit {
     );
   }
 
+  // retrieves all items from the database
   retrieveItems() {
     this.apiService.getAll().subscribe(
       (data: Food[]) => {
